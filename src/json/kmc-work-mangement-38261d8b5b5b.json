@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "kmc-work-mangement",
+  "private_key_id": "38261d8b5b5b4e0f179591ccc3100b78bb2a83a5",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCw7NtHYWRqUZLh\nxRVIG2M/mvn8anJA10Snd059ZfchiXwdJ5a6UkZvadpCVdWwhEE3fbnrrLTnO/3u\nIhI1Tr+pxxsPPv/n/6KnQSuO52FYhTzp4eM6kL6LPDaghW/0nXnJvDaxo8jTU2+X\nNBZyqCM2pGoTwO10IpdmbqE11ovYTc2k8UhtLzLtdkJ9n0eXP1U4RaegJn//P/gF\nuFY1V3oz9reCFMM4hkSgYkrPh6qfPXkVOVIU87xX+VVdgkE1Ma9Ed9YRY3nvgM7n\nc1wjFhq/QgsQ5LoCBjBT99n1nkEQVN9IMMCr9xP20nzQ0nVBodOuWVRTxQ6CFiHV\nHgUxcLZtAgMBAAECggEAFg6pddg4ByM9XyVNdmxnrrXZBbWVoezUk9ZFdE/ChC1a\nSl41pev8+QXm3o9J8VRDtzHW/IFPGmb5zPb1cyzqqzV186wkhl1x/00aK5pAIiOW\nSQhO5m3GO6CZpOCN6R664MI0xWfIcUQ9LMojJE8++KB90xGh6PEpE+2l7orda21u\nh/k1A1nt6KgU7LnDsT9EUC954wcDAPS8AkLfVUrt/PXfR8cAgFHecGLqaBKdIqip\nygud8wZlHcMPe4Wsd94EdOTe+Ie5JjXm9vVVk9JpZNyHlN+oQXzzihVz5dRUDOM5\nUFyOQtUCCPCokiePgkEbQmOzpB9eVjLRxp1a+SKC4QKBgQDlQ0+yhIxSIR0cVhUl\nhQr3IS8FQKvoBzF3Sb7LsWW4Nlt6EIUt1IjED6gW4yc1KTt/ztfLWtTayYPYRBkx\nBCRlGoaU9IFxFdKWnWcxiZpgAjWgfL32jqcrGlPOyg068SdnZ2ozKNSjY2wqia5B\n+IsEH38skMFGfWrsDQmUBUKV0QKBgQDFjv4oNnehqT2jBPlle2df4KvB/LEIS8ja\nOCHo4gbd7UFfIwCLDnkVhsSsnY9XS48QfE6B/c2Z0QDIu5DC8NI/58IqjoTUyzwa\nNvTytq9vwHtVjs1CR2vVnV8dAUrP6QbkWPhZ/WpyBMj0dZpdXtiBln+araFWM6mI\n3G0QAvqR3QKBgQCSJvYAlPUrSkbXkJ0MfSL/Zl0mWRL96NAE/rMuAVoaNDTevPdZ\nvxqs+loqtQaColV25bK1xaLaEwsE7Gyuzbgx59YR0UlPgRztvUxSzSjnuaDcPYmQ\nS2KQXMk+k5oZkDCRf+C42ner7S7Ac2LuVXax2y5kh6deu4dVEf6gKTZIcQKBgA6q\nU8GmcXEFwDaWyvC2nXDnm7h1yqqD/a/9VL8V8E6PKzglwAeSlnh7naP2ukpPqJof\nsDBEJ/wQIM/F5LQj7meiC67fD4tAXwDPLZXK6/EOx9kNFb2i0aV03jen/ea7NLDE\nzgLYJgu6wTQser4NqWLNSkGwO/bLNP2c51e18OXdAoGBAI+Kih4FoHf7tEoZwR1k\nGVFrmyC1HAwrf7CsYEfol2tm2nYS08/VCMcQ7QcNi2RaNcL8C4cj5IBB9aWS7ipt\n0QPFQB/a8Vtap43rXmpSHYyFw9d276l3EyxvBU/+Om8ddvsEKCSnRi40PO7R7z9O\ncwO7r4dkzc46nLOA44HhPjTt\n-----END PRIVATE KEY-----\n",
+  "client_email": "raymond-niel-andres@kmc-work-mangement.iam.gserviceaccount.com",
+  "client_id": "100413848357545561557",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/raymond-niel-andres%40kmc-work-mangement.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
