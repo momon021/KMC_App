@@ -1,0 +1,23 @@
+/* Example styles for adjusting alignment */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the container takes up the full viewport height */
+  }
+  
+  /* Add margin to move the login form to the right */
+  @media (min-width: 550px) {
+    .login-container {
+      align-items: flex-start; /* Adjust to move slightly to the right */
+      padding-left: 50px; /* Add left padding for spacing */
+    }
+  }
+  
+  /* Adjust other styles as needed */
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Add more custom styles as needed */
+  

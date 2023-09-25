@@ -1,37 +1,54 @@
-/* CSS file */
-.page {
-    /* Ensure the page takes the full viewport height */
-    min-height: 100vh;
-    position:absolute; /* Needed for stacking context */
+/* Adjustments for the top bar */
+#main-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px; /* Add padding to create space around elements */
+  margin-top: 20px; /* Adjust the margin-top value as needed */
+}
 
-      /* Add padding or margin to create space for the fixed top tab */
-  padding-top: 50px; /* Adjust the value as needed */
-  /* The rest of your content styles */
-  overflow-y: auto; /* Allow the content to scroll vertically */
-  
-    /* Add styles for your page content, like padding or margins */
-  }
-  
-  .top-tab {
-    /* Define styles for your top tab */
-    background-color: #e4e2e4; /* Example background color */
-    color: rgb(7, 7, 7); /* Example text color */
-    text-align: center; /* Center-align text */
-    padding: 10px; /* Adjust padding as needed */
-  
-    /* Fixed position at the top center */
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000; /* Ensure it's above other content */
-  
-    /* Optionally add box-shadow or other styling */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  .content {
-    /* Add padding or margin to create space for the fixed top tab */
-    padding-top: 50px; /* Adjust the value as needed */
-    /* The rest of your content styles */
-    overflow-y: auto; /* Allow the content to scroll vertically */
-  }
+.navbar-brand {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Add styles for the username and user avatar */
+#user-info {
+  display: flex;
+  align-items: center;
+}
+
+#user-info .mr-2 {
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+/* Horizontal menu items */
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+}
+
+.navbar-nav .nav-item {
+  margin-right: 15px; /* Adjust the spacing between menu items */
+}
+
+.navbar-nav .nav-link {
+  color: #000; /* Change the menu item text color */
+  text-decoration: none;
+  transition: color 0.3s;
+  display: inline-block; /* Display menu items inline */
+  padding: 5px 10px; /* Add padding to menu items */
+  border-radius: 5px; /* Add rounded corners to menu items */
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: #007bff; /* Change the background color on hover */
+  color: #fff; /* Change the text color on hover */
+}
+
+.navbar-nav .nav-link.active {
+  font-weight: bold; /* Style the active menu item */
+}

@@ -16,19 +16,7 @@ const TaskList = ({ tasks, onDelete, onUpdate }) => {
           </tr>
         </thead>
         <tbody>
-          {tasks.map((task, index) => (
-            <tr key={index}>
-              <td>{task.task}</td>
-              <td>{task.status}</td>
-              <td>{task.startTime}</td>
-              <td>{task.endTime}</td>
-              <td>{task.name}</td>
-              <td>
-                <button onClick={() => onUpdate(index)}>Update</button>
-                <button onClick={() => onDelete(index)}>Delete</button>
-              </td>
-            </tr>
-          ))}
+         
         </tbody>
       </table>
     </div>
