@@ -27,6 +27,7 @@ function Login({ onLogin }) {
         } else {
           // Display an error message for invalid credentials
           alert(data.message);
+          onLogin();
         }
       })
       .catch((error) => {

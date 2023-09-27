@@ -30,7 +30,7 @@ app.get('/get-google-sheets-data', async (req, res) => {
     const sheetsAPI = google.sheets({ version: 'v4', auth });
 
     const spreadsheetId = '1e7nX6RI156cpSNQZ3ersg8Idg9cKZq9e-s5AtNRYMn4';
-    const range = 'Sheet1!A1:G10';
+    const range = 'Client!A1:W12';
 
     const response = await sheetsAPI.spreadsheets.values.get({
       spreadsheetId,

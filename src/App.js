@@ -6,11 +6,11 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 // Import your new components for additional menu items
 import MainDashboard from "./components/Dashboard.js";
-import WebsiteTraffic from "./components/WebsiteTraffic.js";
-import Password from "./components/Password.js";
+import ClientDetails from "./components/ClientDetails.js";
+import TaskManagement from "./components/TaskManagement.js";
 import Analytics from "./components/Analytics.js";
 import SEO from "./components/SEO.js";
-import Orders from "./components/TaskList.js";
+import Settings from "./components/Settings.js";
 
 function App() {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -49,15 +49,15 @@ function App() {
       case 0:
         return <MainDashboard />;
       case 1:
-        return <WebsiteTraffic />;
+        return <ClientDetails />;
       case 2:
-        return <Password />;
+        return <TaskManagement />;
       case 3:
         return <Analytics />;
       case 4:
         return <SEO />;
       case 5:
-        return <Orders />;
+        return <Settings />;
       // Add cases for other menu items you created
       default:
         return null;
