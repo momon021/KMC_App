@@ -7,7 +7,7 @@ function ClientDetails() {
     // Fetch data from the Netlify function
     async function fetchData() {
       try {
-        const response = await fetch('https://your-netlify-app.netlify.app/.netlify/functions/get-google-sheets-data', {
+        const response = await fetch('https://kmcworkmanagement.netlify.app/.netlify/functions/get-google-sheets-data', {
           method: 'POST', // Use POST method to send the sheet name in the request body
           body: JSON.stringify({ sheetName: 'TASK' }), // Replace 'YourSheetName' with the actual sheet name
           headers: {
