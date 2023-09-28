@@ -14,7 +14,7 @@ import Settings from "./components/Settings.js";
 
 function App() {
   const [selectedTab, setSelectedTab] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add a login state
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Add a login state
 
   const pageNames = [
     "Dashboard",
@@ -26,21 +26,15 @@ function App() {
   ];
 
   const handleLogin = () => {
-    // Perform your login logic here
-    // If login is successful, update the isLoggedIn state to true
     setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
-    // Perform logout actions, such as clearing user data or tokens
-
-    // Update the isLoggedIn state to indicate the user is logged out
     setIsLoggedIn(false);
   };
 
   const renderContent = () => {
     if (!isLoggedIn) {
-      // Render the Login component if the user is not logged in
       return <Login onLogin={handleLogin} />;
     }
 
