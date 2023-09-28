@@ -4,7 +4,7 @@ const { google } = require('googleapis');
 // Function to retrieve data from Google Sheets
 exports.handler = async (event, context) => {
   try {
-    const keyFile = require('../../json/kmc-work-mangement-38261d8b5b5b.json'); // Replace with your key file path
+    const keyFile = require('../../src/json/kmc-work-mangement-38261d8b5b5b.json'); // Replace with your key file path
     const auth = new google.auth.GoogleAuth({
       credentials: keyFile,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
