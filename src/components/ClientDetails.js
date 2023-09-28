@@ -11,7 +11,9 @@ function ClientDetails() {
       async function fetchData() {
           try {
               //const response = await fetch('/get-google-sheets-data');
-              const response = await fetch('http://localhost:5000/get-google-sheets-data');
+              //const response = await fetch('http://localhost:5000/get-google-sheets-data');
+              const response = await fetch('https://kmcworkmanagement.netlify.app/.netlify/functions/get-google-sheets-data');
+              
               const jsonData = await response.json();
               setSheetData(jsonData);
           } catch (error) {
