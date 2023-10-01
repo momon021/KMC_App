@@ -3,7 +3,22 @@ const { google } = require('googleapis');
 // Function to retrieve data from Google Sheets based on the provided sheet name
 exports.handler = async (event, context) => {
   try {
+<<<<<<< HEAD
   
+=======
+    // Check if event.body is empty or not valid JSON
+    if (!event.body) {
+      return {
+        statusCode: 400, // Bad Request
+        body: JSON.stringify({ error: 'Invalid or empty request body' }),
+      };
+    }
+
+    // Parse the incoming JSON body to extract the sheet name
+    const requestBody = JSON.parse(event.body);
+    const sheetName = requestBody.sheetName; // Assuming the sheetName is passed in the request body
+
+>>>>>>> 22cd5588c9fb35e4e233b2fedf2986d40ac37a62
     const keyFile = require('../../src/json/kmc-work-mangement-38261d8b5b5b.json'); // Replace with your key file path
     const auth = new google.auth.GoogleAuth({
       credentials: keyFile,
