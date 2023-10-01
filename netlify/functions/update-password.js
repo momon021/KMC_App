@@ -10,7 +10,10 @@ exports.handler = async (event, context) => {
     });
 
     const sheetsAPI = google.sheets({ version: 'v4', auth });
+    
+    // Extract the userId from query parameters
     const userId = event.queryStringParameters.userId; // Get USER_ID from query parameters
+    
     const spreadsheetId = '1e7nX6RI156cpSNQZ3ersg8Idg9cKZq9e-s5AtNRYMn4';
     const sheetName = 'USER';
     const range = `${sheetName}!A1:G1000`;
