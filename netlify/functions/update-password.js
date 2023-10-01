@@ -3,6 +3,19 @@ const bcrypt = require('bcryptjs');
 
 exports.handler = async (event, context) => {
   try {
+    // Parse the JSON request body to get the new password
+    let newPassword;
+    try {
+      const requestBody = JSON.parse(event.body);
+      newPassword = requestBody.password;
+    } catch (error) {
+      console.error('Error parsing JSON body:', error);
+      return {
+        statusCode: 400, // Bad Request
+        body: JSON.stringify({ error: 'Invalid JSON input' }),
+      };
+    }
+
     const keyFile = require('../../src/json/kmc-work-mangement-38261d8b5b5b.json'); // Replace with your key file path
     const auth = new google.auth.GoogleAuth({
       credentials: keyFile,
@@ -10,16 +23,13 @@ exports.handler = async (event, context) => {
     });
 
     const sheetsAPI = google.sheets({ version: 'v4', auth });
-    
+
     // Extract the userId from query parameters
     const userId = event.queryStringParameters.userId; // Get USER_ID from query parameters
-    
+
     const spreadsheetId = '1e7nX6RI156cpSNQZ3ersg8Idg9cKZq9e-s5AtNRYMn4';
     const sheetName = 'USER';
     const range = `${sheetName}!A1:G1000`;
-
-    // Assuming you have a request body containing the new password
-    const newPassword = JSON.parse(event.body).password;
 
     // Hash the new password using bcrypt
     const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -31,11 +41,12 @@ exports.handler = async (event, context) => {
     });
 
     const values = response.data.values;
-    console.log ('values: ',values)
-
+console.log('values: ',values)
     // Find the user in your data (values array) by USER_ID and update the password
     const userIndex = values.findIndex((row) => row[0] === userId);
 
+    console.log('userIndex: ',userIndex)
+    console.log('userId: ',userId)
     if (userIndex !== -1) {
       // Update the user's password with the hashed password
       values[userIndex][2] = hashedPassword;
