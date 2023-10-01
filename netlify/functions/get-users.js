@@ -3,6 +3,14 @@ const { google } = require('googleapis');
 // Function to retrieve data from Google Sheets based on the provided sheet name
 exports.handler = async (event, context) => {
   try {
+    // Check if event.body is empty or not valid JSON
+    if (!event.body) {
+      return {
+        statusCode: 400, // Bad Request
+        body: JSON.stringify({ error: 'Invalid or empty request body' }),
+      };
+    }
+
     // Parse the incoming JSON body to extract the sheet name
     const requestBody = JSON.parse(event.body);
     const sheetName = requestBody.sheetName; // Assuming the sheetName is passed in the request body
