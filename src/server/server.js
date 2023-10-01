@@ -443,11 +443,6 @@ app.get('/api/view-service/', async (req, res) => {
       Type: row[2],
       Scope: row[3],
       Details: row[4],
-      /*SERVICE_ID: row[0],
-      SERVICE: row[1],
-      Type: row[2],
-      Scope: row[3],
-      Details: row[4],*/
     }));
 
     res.json(services);
@@ -460,7 +455,6 @@ app.delete('/api/delete-service/:serviceId', async (req, res) => {
   try {
     const sheetsAPI = google.sheets({ version: 'v4', auth });
     const serviceId = req.params.serviceId;
-    console.log('API Deleting service with ID:', serviceId);
     const spreadsheetId = '1e7nX6RI156cpSNQZ3ersg8Idg9cKZq9e-s5AtNRYMn4';
     const sheetName = 'SERVICES';
 

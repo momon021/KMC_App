@@ -32,6 +32,17 @@ const Header = styled('div')({
   width: '100%',
   marginBottom: '16px',
 });
+const config = {
+  //baseUrl: 'http://localhost:5000/api',
+  baseUrl: 'https://kmcworkmanagement.netlify.app/.netlify/functions/',
+  endpoints: {
+    editUser: '/edit-user',
+    deleteUser: '/edit-user-status',
+    addUser: '/add-user',
+    getUsers: '/get-users',
+    changePassword: '/update-password',
+  },
+};
 
 
 function User() {
@@ -60,10 +71,9 @@ function User() {
     setSelectedUser(user);
     setOpenEditDialog(true);
   };
-
   const handleEditUser = () => {
     // Send a PUT request to your edit API with the updated user data
-    fetch(`http://localhost:5000/api/edit-user/${selectedUser.USER_ID}`, {
+    fetch(`${config.baseUrl}${config.endpoints.editUser}/${selectedUser.USER_ID}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -94,27 +104,51 @@ function User() {
       });
   };
 
-  const handleOpenDeleteConfirmation = (user) => {
-    setSelectedUser(user);
-    setOpenDeleteConfirmation(true);
+  
+  const handleChangePassword = () => {
+    // Check if the new password and confirm password match
+    if (newPassword !== confirmPassword) {
+      setAlertType('error');
+      setAlertMessage('New password and confirm password do not match.');
+      setOpenDeleteSnackbar(true);
+      return;
+    }
+
+    const updatePasswordUrl = `${config.baseUrl}${config.endpoints.changePassword}/${selectedUser.USER_ID}`;
+    putRequest(updatePasswordUrl, { password: newPassword })
+      .then((data) => {
+        if (data.success) {
+          // Assuming the password change was successful
+          setAlertType('success');
+          setAlertMessage('Password changed successfully.');
+          setOpenDeleteSnackbar(true);
+
+          // Reset the password fields
+          setOldPassword('');
+          setNewPassword('');
+          setConfirmPassword('');
+
+          // Close the password change dialog if needed
+          setOpenEditDialog(false);
+        } else {
+          console.error('Error changing password:', data.message);
+          setAlertType('error');
+          setAlertMessage(`Error changing password: ${data.message}`);
+          setOpenDeleteSnackbar(true);
+        }
+      })
+      .catch((error) => {
+        console.error('Error changing password:', error);
+        setAlertType('error');
+        setAlertMessage('Error changing password.');
+        setOpenDeleteSnackbar(true);
+      });
   };
 
-  const handleCloseDeleteConfirmation = () => {
-    setOpenDeleteConfirmation(false);
-  };
-
-  const handleOpenChangePasswordDialog = (user) => {
-    setSelectedUser(user);
-    setOpenChangePasswordDialog(true);
-  };
-
-  const handleCloseChangePasswordDialog = () => {
-    setOpenChangePasswordDialog(false);
-  };
   const handleDeleteUser = () => {
     handleCloseDeleteConfirmation();
     // Send a PUT request to update the user's status to "deleted"
-    fetch(`http://localhost:5000/api/edit-user-status/${selectedUser.USER_ID}`, {
+    fetch(`${config.baseUrl}${config.endpoints.deleteUser}/${selectedUser.USER_ID}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -142,6 +176,24 @@ function User() {
         setAlertMessage('Error deleting user.');
         setOpenDeleteSnackbar(true);
       });
+  };
+
+  const handleOpenDeleteConfirmation = (user) => {
+    setSelectedUser(user);
+    setOpenDeleteConfirmation(true);
+  };
+
+  const handleCloseDeleteConfirmation = () => {
+    setOpenDeleteConfirmation(false);
+  };
+
+  const handleOpenChangePasswordDialog = (user) => {
+    setSelectedUser(user);
+    setOpenChangePasswordDialog(true);
+  };
+
+  const handleCloseChangePasswordDialog = () => {
+    setOpenChangePasswordDialog(false);
   };
 
   const handleSnackbarClose = (event, reason) => {
@@ -184,49 +236,22 @@ function User() {
     }
   }
 
-  const handleChangePassword = () => {
-    // Check if the new password and confirm password match
-    if (newPassword !== confirmPassword) {
-      setAlertType('error');
-      setAlertMessage('New password and confirm password do not match.');
-      setOpenDeleteSnackbar(true);
-      return;
-    }
-
-    const updatePasswordUrl = `http://localhost:5000/api/update-password/${selectedUser.USER_ID}`;
-    putRequest(updatePasswordUrl, { password: newPassword })
+  const fetchUserList = () => {
+    return fetch(`${config.baseUrl}${config.endpoints.getUsers}`)
+      .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
-          // Assuming the password change was successful
-          setAlertType('success');
-          setAlertMessage('Password changed successfully.');
-          setOpenDeleteSnackbar(true);
-
-          // Reset the password fields
-          setOldPassword('');
-          setNewPassword('');
-          setConfirmPassword('');
-
-          // Close the password change dialog if needed
-          setOpenEditDialog(false);
-        } else {
-          console.error('Error changing password:', data.message);
-          setAlertType('error');
-          setAlertMessage(`Error changing password: ${data.message}`);
-          setOpenDeleteSnackbar(true);
-        }
+        const userData = data.slice(1);
+        setUsers(userData);
       })
       .catch((error) => {
-        console.error('Error changing password:', error);
-        setAlertType('error');
-        setAlertMessage('Error changing password.');
-        setOpenDeleteSnackbar(true);
+        console.error('Error fetching users:', error);
+        throw error; // Propagate the error for handling
       });
   };
 
   const handleAddUser = () => {
     // Send a POST request to your add-user API with the new user data
-    fetch('http://localhost:5000/api/add-user', {
+    fetch(`${config.baseUrl}${config.endpoints.addUser}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -259,19 +284,6 @@ function User() {
         setAlertType('error');
         setAlertMessage('Error adding user.');
         setOpenDeleteSnackbar(true);
-      });
-  };
-
-  const fetchUserList = () => {
-    return fetch('http://localhost:5000/api/get-users')
-      .then((response) => response.json())
-      .then((data) => {
-        const userData = data.slice(1);
-        setUsers(userData);
-      })
-      .catch((error) => {
-        console.error('Error fetching users:', error);
-        throw error; // Propagate the error for handling
       });
   };
 
@@ -330,12 +342,13 @@ function User() {
       )}
 
       <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
-        <DialogTitle style={{ marginBottom: '30px' }}>Edit User</DialogTitle>
+        <DialogTitle >Edit User</DialogTitle>
         <DialogContent>
           <TextField
+            fullWidth
             label="Username"
             variant="outlined"
-            fullWidth
+            margin="normal"
             value={selectedUser ? selectedUser.USERNAME : ''}
             onChange={(e) =>
               setSelectedUser({
@@ -345,9 +358,10 @@ function User() {
             }
           />
           <TextField
+            fullWidth
             label="Name"
             variant="outlined"
-            fullWidth
+            margin="normal"
             value={selectedUser ? selectedUser.NAME : ''}
             onChange={(e) =>
               setSelectedUser({
@@ -357,9 +371,10 @@ function User() {
             }
           />
           <TextField
+            fullWidth
             label="Role"
             variant="outlined"
-            fullWidth
+            margin="normal"
             value={selectedUser ? selectedUser.ROLE : ''}
             onChange={(e) =>
               setSelectedUser({
@@ -380,11 +395,12 @@ function User() {
         </DialogActions>
       </Dialog>
       <Dialog open={openChangePasswordDialog} onClose={handleCloseChangePasswordDialog}>
-        <DialogTitle style={{ marginBottom: '30px' }}>Change Password</DialogTitle>
+        <DialogTitle>Change Password</DialogTitle>
         <DialogContent>
           <TextField
             label="Old Password"
             variant="outlined"
+            margin="normal"
             fullWidth
             type="password"
             value={oldPassword}
@@ -393,6 +409,7 @@ function User() {
           <TextField
             label="New Password"
             variant="outlined"
+            margin="normal"
             fullWidth
             type="password"
             value={newPassword}
@@ -401,6 +418,7 @@ function User() {
           <TextField
             label="Confirm New Password"
             variant="outlined"
+            margin="normal"
             fullWidth
             type="password"
             value={confirmPassword}
@@ -417,11 +435,12 @@ function User() {
         </DialogActions>
       </Dialog>
       <Dialog open={openAddUserDialog} onClose={handleCloseAddUserDialog}>
-        <DialogTitle style={{ marginBottom: '30px' }}>Add New User</DialogTitle>
+        <DialogTitle >Add New User</DialogTitle>
         <DialogContent>
           <TextField
             label="Username"
             variant="outlined"
+            margin="normal"
             fullWidth
             value={newUser.USERNAME}
             onChange={(e) =>
@@ -434,6 +453,7 @@ function User() {
           <TextField
             label="Name"
             variant="outlined"
+            margin="normal"
             fullWidth
             value={newUser.NAME}
             onChange={(e) =>
@@ -446,6 +466,7 @@ function User() {
           <TextField
             label="Role"
             variant="outlined"
+            margin="normal"
             fullWidth
             value={newUser.ROLE}
             onChange={(e) =>

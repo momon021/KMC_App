@@ -15,7 +15,7 @@ exports.handler = async (event, context) => {
 
     const sheetsAPI = google.sheets({ version: 'v4', auth });
     const spreadsheetId = '1e7nX6RI156cpSNQZ3ersg8Idg9cKZq9e-s5AtNRYMn4';
-    const range = `${sheetName}!A1:W12`; // Use the provided sheet name in the range
+    const range = `${sheetName}!A:Z`; // Use the provided sheet name in the range
 
     const response = await sheetsAPI.spreadsheets.values.get({
       spreadsheetId,
@@ -23,6 +23,15 @@ exports.handler = async (event, context) => {
     });
 
     const values = response.data.values;
+    
+    // Check if values are empty
+    if (!values) {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: 'No data found in Google Sheets for the specified sheet name' }),
+      };
+    }
+
     return {
       statusCode: 200,
       body: JSON.stringify(values),

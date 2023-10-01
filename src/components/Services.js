@@ -18,6 +18,7 @@ import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import '../styles/Services.css'; // Import the CSS file
 import { styled } from '@mui/system';
+
 const styles = {
   loadingContainer: {
     display: 'flex',
@@ -41,6 +42,17 @@ const Header = styled('div')({
   marginBottom: '16px',
 });
 
+// Configuration Object
+const config = {
+  baseUrl: 'http://localhost:5000/api', // Base URL
+  endpoints: {
+    viewService: '/view-service',
+    deleteService: '/delete-service',
+    editService: '/edit-service',
+    addService: '/add-service',
+  },
+};
+
 function Services() {
   const [services, setServices] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -52,12 +64,13 @@ function Services() {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('error');
-  const [loading, setLoading] = useState(true); // State variable for loading indicator
+  const [loading, setLoading] = useState(true); // State variable for the loading indicator
   const [error, setError] = useState(null); // State variable for error handling
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false); // State variable for delete confirmation dialog
 
   const fetchServices = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/view-service');
+      const response = await axios.get(`${config.baseUrl}${config.endpoints.viewService}`);
       setServices(response.data);
       setLoading(false); // Set loading to false when data is fetched successfully
     } catch (error) {
@@ -70,7 +83,6 @@ function Services() {
   useEffect(() => {
     fetchServices();
   }, []);
-
 
   const handleAddService = () => {
     setDialogOpen(true);
@@ -88,17 +100,27 @@ function Services() {
 
   const handleDeleteService = async (serviceId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/delete-service/${serviceId}`);
+      await axios.delete(`${config.baseUrl}${config.endpoints.deleteService}/${serviceId}`);
       fetchServices(); // Refresh data after deletion
       showNotification('Service deleted successfully', 'success');
+      setDeleteConfirmationOpen(false); // Close the delete confirmation dialog after successful deletion
     } catch (error) {
       setAlertType('error');
       setAlertMessage('Error deleting service');
       setAlertOpen(true);
+      setDeleteConfirmationOpen(false); // Close the delete confirmation dialog after an error
     }
   };
 
+  const handleOpenDeleteConfirmation = (service) => {
+    setSelectedService(service);
+    setDeleteConfirmationOpen(true);
+  };
 
+  const handleCloseDeleteConfirmation = () => {
+    setSelectedService({});
+    setDeleteConfirmationOpen(false);
+  };
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
@@ -112,7 +134,7 @@ function Services() {
   const handleSaveService = async () => {
     try {
       if (selectedService) {
-        await axios.put(`http://localhost:5000/api/edit-service/${selectedService.SERVICE_ID}`, {
+        await axios.put(`${config.baseUrl}${config.endpoints.editService}/${selectedService.SERVICE_ID}`, {
           SERVICE: serviceName,
           Type: serviceType,
           Scope: serviceScope,
@@ -121,7 +143,7 @@ function Services() {
         fetchServices(); // Refresh data after editing
         showNotification('Service updated successfully', 'success');
       } else {
-        await axios.post('http://localhost:5000/api/add-service', {
+        await axios.post(`${config.baseUrl}${config.endpoints.addService}`, {
           SERVICE: serviceName,
           Type: serviceType,
           Scope: serviceScope,
@@ -186,7 +208,7 @@ function Services() {
                     <Button color="primary" onClick={() => handleEditService(service)}>
                       Edit
                     </Button>
-                    <Button color="secondary" onClick={() => handleDeleteService(service.SERVICE_ID)}>
+                    <Button color="secondary" onClick={() => handleOpenDeleteConfirmation(service)}>
                       Delete
                     </Button>
                   </TableCell>
@@ -241,12 +263,27 @@ function Services() {
           </Button>
         </DialogActions>
       </Dialog>
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteConfirmationOpen} onClose={handleCloseDeleteConfirmation}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <Typography>Are you sure you want to delete this service?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDeleteConfirmation} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={() => handleDeleteService(selectedService.SERVICE_ID)} color="secondary">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Snackbar open={alertOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
         <MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity={alertType}>
           {alertMessage}
         </MuiAlert>
       </Snackbar>
-      </Container>
+    </Container>
   );
 }
 

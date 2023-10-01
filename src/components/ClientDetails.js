@@ -18,6 +18,7 @@ import {
 import '../styles/ClientDetails.css';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/system';
+
 const Header = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
@@ -32,6 +33,23 @@ const Container = styled('div')({
   padding: '16px',
 });
 
+// Configuration Object
+const config = {
+  //baseUrl: 'http://localhost:5000',
+  baseUrl: 'https://kmcworkmanagement.netlify.app/.netlify/functions',
+  apiEndpoints: {
+    getData: '/get-google-sheets-data',
+    editClient: '/edit-client',
+    addClient: '/add-client',
+  },
+  columns: {
+    selectedColumnsIndices: [1, 2, 3, 4, 23],
+    selectedColumnsIndicesView: [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+    ],
+  },
+};
+
 function ClientDetails() {
   const [sheetData, setSheetData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -44,7 +62,7 @@ function ClientDetails() {
     // Fetch data from the API
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:5000/get-google-sheets-data', {
+        const response = await fetch(`${config.baseUrl}${config.apiEndpoints.getData}`, {
           method: 'GET',
         });
 
@@ -89,11 +107,6 @@ function ClientDetails() {
     setNewClientData({});
   };
 
-  const selectedColumnsIndices = [1, 2, 3, 4, 23];
-  const selectedColumnsIndicesView = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22
-  ];
-
   return (
     <div>
       <Container>
@@ -108,7 +121,7 @@ function ClientDetails() {
           <Table>
             <TableHead>
               <TableRow>
-                {selectedColumnsIndices.map((colIndex) => (
+                {config.columns.selectedColumnsIndices.map((colIndex) => (
                   <TableCell key={colIndex} className="header-cell">
                     {sheetData[0] && sheetData[0][colIndex]}
                   </TableCell>
@@ -119,7 +132,7 @@ function ClientDetails() {
             <TableBody>
               {sheetData.slice(1).map((row, rowIndex) => (
                 <TableRow key={rowIndex}>
-                  {selectedColumnsIndices.map((colIndex) => (
+                  {config.columns.selectedColumnsIndices.map((colIndex) => (
                     <TableCell key={colIndex}>{row[colIndex]}</TableCell>
                   ))}
                   <TableCell>
@@ -137,7 +150,7 @@ function ClientDetails() {
             <DialogTitle>Client Details</DialogTitle>
             <DialogContent>
               <Grid container spacing={3} style={{ marginTop: '10px' }}>
-                {selectedColumnsIndicesView.map((colIndex) => (
+                {config.columns.selectedColumnsIndicesView.map((colIndex) => (
                   <Grid item xs={6} key={colIndex}>
                     <strong>{sheetData[0] && sheetData[0][colIndex]}:</strong> {selectedItem[colIndex]}
                   </Grid>
@@ -154,7 +167,7 @@ function ClientDetails() {
           <DialogTitle>Edit Client Details</DialogTitle>
           <DialogContent>
             <Grid container spacing={3} style={{ marginTop: '10px' }}>
-              {selectedColumnsIndicesView.map((colIndex) => (
+              {config.columns.selectedColumnsIndicesView.map((colIndex) => (
                 <Grid item xs={6} key={colIndex}>
                   <TextField
                     label={sheetData[0] && sheetData[0][colIndex]}
@@ -176,7 +189,7 @@ function ClientDetails() {
           <DialogTitle>Add Client</DialogTitle>
           <DialogContent>
             <Grid container spacing={3} style={{ marginTop: '10px' }}>
-              {selectedColumnsIndicesView.map((colIndex) => (
+              {config.columns.selectedColumnsIndicesView.map((colIndex) => (
                 <Grid item xs={6} key={colIndex}>
                   <TextField
                     label={sheetData[0] && sheetData[0][colIndex]}
