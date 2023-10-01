@@ -103,7 +103,7 @@ function User() {
       });
   };
 
-  
+
   const handleChangePassword = () => {
     // Check if the new password and confirm password match
     if (newPassword !== confirmPassword) {
@@ -114,11 +114,10 @@ function User() {
     }
 
     const updatePasswordUrl = `${config.baseUrl}${config.endpoints.changePassword}/${selectedUser.USER_ID}`;
-    console.log ('updatePasswordUrl: ',updatePasswordUrl)
+    console.log('updatePasswordUrl: ', updatePasswordUrl);
     putRequest(updatePasswordUrl, { password: newPassword })
       .then((data) => {
         if (data.success) {
-          setOpenChangePasswordDialog(false);
           // Assuming the password change was successful
           setAlertType('success');
           setAlertMessage('Password changed successfully.');
@@ -129,8 +128,11 @@ function User() {
           setNewPassword('');
           setConfirmPassword('');
 
-          // Close the password change dialog if needed
-          setOpenEditDialog(false);
+          // Close the password change dialog
+          setOpenChangePasswordDialog(false); // Close the dialog here
+
+          // Set the success state for password change
+          setPasswordChangeSuccess(true);
         } else {
           console.error('Error changing password:', data.message);
           setAlertType('error');
@@ -147,7 +149,7 @@ function User() {
   };
   const handleDeleteUser = () => {
     handleCloseDeleteConfirmation();
-    
+
     // Send a PUT request to update the user's status to "deleted"
     fetch(`${config.baseUrl}${config.endpoints.editUser}/${selectedUser.USER_ID}`, {
       method: 'PUT',
@@ -177,7 +179,7 @@ function User() {
         setOpenDeleteSnackbar(true);
       });
   };
-  
+
   const handleOpenDeleteConfirmation = (user) => {
     setSelectedUser(user);
     setOpenDeleteConfirmation(true);
