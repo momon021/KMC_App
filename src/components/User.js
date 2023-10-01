@@ -118,6 +118,7 @@ function User() {
     putRequest(updatePasswordUrl, { password: newPassword })
       .then((data) => {
         if (data.success) {
+          setOpenChangePasswordDialog(false);
           // Assuming the password change was successful
           setAlertType('success');
           setAlertMessage('Password changed successfully.');
