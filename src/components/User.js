@@ -34,7 +34,7 @@ const Header = styled('div')({
 });
 const config = {
   //baseUrl: 'http://localhost:5000/api',
-  baseUrl: 'https://kmcworkmanagement.netlify.app/.netlify/functions/',
+  baseUrl: 'https://kmcworkmanagement.netlify.app/.netlify/functions',
   endpoints: {
     editUser: '/edit-user',
     deleteUser: '/edit-user-status',
