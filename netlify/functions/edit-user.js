@@ -38,6 +38,7 @@ exports.handler = async (event, context) => {
         updatedUserData.ROLE,
         updatedUserData.REGISTRATION_DATE,
         updatedUserData.LAST_UPDATE_DATE,
+        updatedUserData.ACCOUNT_STATUS, 
       ];
     } else {
       return {
@@ -49,7 +50,7 @@ exports.handler = async (event, context) => {
     // Update the data in Google Sheets using sheetsAPI.spreadsheets.values.update
     await sheetsAPI.spreadsheets.values.update({
       spreadsheetId: spreadsheetId,
-      range: `${sheetName}!A${userIndex + 1}:G${userIndex + 1}`,
+      range: `${sheetName}!A${userIndex + 1}:H${userIndex + 1}`,
       valueInputOption: 'RAW',
       resource: { values: [values[userIndex]] },
     });

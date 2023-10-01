@@ -149,7 +149,7 @@ app.put('/api/edit-user/:userId', async (req, res) => {
     const userId = req.params.userId; // Get USER_ID from request
     const spreadsheetId = '1e7nX6RI156cpSNQZ3ersg8Idg9cKZq9e-s5AtNRYMn4';
     const sheetName = 'USER'; // Set the sheet name dynamically
-    const range = `${sheetName}!A1:G1000`; // Set the range dynamically
+    const range = `${sheetName}!A:Z`; // Set the range dynamically
 
     // Assuming you have a request body containing updated user data, including LAST_UPDATE_DATE
     const updatedUserData = req.body;
@@ -175,6 +175,7 @@ app.put('/api/edit-user/:userId', async (req, res) => {
         updatedUserData.ROLE,
         updatedUserData.REGISTRATION_DATE,
         updatedUserData.LAST_UPDATE_DATE, // Update Last Update Date
+        updatedUserData.ACCOUNT_STATUS, 
       ];
     } else {
       return res.status(404).json({ error: 'User not found' });
@@ -183,7 +184,7 @@ app.put('/api/edit-user/:userId', async (req, res) => {
     // Update the data in Google Sheets using sheetsAPI.spreadsheets.values.update
     await sheetsAPI.spreadsheets.values.update({
       spreadsheetId: spreadsheetId,
-      range: `${sheetName}!A${userIndex + 1}:G${userIndex + 1}`, // Use the dynamically set sheet name and range
+      range: `${sheetName}!A${userIndex + 1}:H${userIndex + 1}`, // Use the dynamically set sheet name and range
       valueInputOption: 'RAW',
       resource: { values: [values[userIndex]] },
     });
@@ -194,6 +195,8 @@ app.put('/api/edit-user/:userId', async (req, res) => {
     res.status(500).json({ error: 'Failed to update user data in Google Sheets' });
   }
 });
+
+
 
 app.post('/api/login', async (req, res) => {
   try {
@@ -389,6 +392,7 @@ app.put('/api/edit-service/:serviceId', async (req, res) => {
     res.status(500).json({ error: 'Failed to update service data in Google Sheets' });
   }
 });
+
 
 app.get('/api/view-service/:serviceId', async (req, res) => {
   try {

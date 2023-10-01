@@ -37,7 +37,6 @@ const config = {
   baseUrl: 'https://kmcworkmanagement.netlify.app/.netlify/functions',
   endpoints: {
     editUser: '/edit-user',
-    deleteUser: '/edit-user-status',
     addUser: '/add-user',
     getUsers: '/get-users',
     changePassword: '/update-password',
@@ -144,22 +143,21 @@ function User() {
         setOpenDeleteSnackbar(true);
       });
   };
-
   const handleDeleteUser = () => {
     handleCloseDeleteConfirmation();
+    
     // Send a PUT request to update the user's status to "deleted"
-    fetch(`${config.baseUrl}${config.endpoints.deleteUser}/${selectedUser.USER_ID}`, {
+    fetch(`${config.baseUrl}${config.endpoints.editUser}/${selectedUser.USER_ID}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ status: 'deleted' }),
+      body: JSON.stringify({ ACCOUNT_STATUS: 'deleted' }),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          setOpenEditDialog(false);
-          fetchUserList();
+          fetchUserList(); // Fetch updated user list
           setAlertType('success');
           setAlertMessage('User deleted successfully!');
           setOpenDeleteSnackbar(true);
@@ -177,7 +175,7 @@ function User() {
         setOpenDeleteSnackbar(true);
       });
   };
-
+  
   const handleOpenDeleteConfirmation = (user) => {
     setSelectedUser(user);
     setOpenDeleteConfirmation(true);
