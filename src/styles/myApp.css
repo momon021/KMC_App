@@ -1,0 +1,91 @@
+/* Adjustments for the top bar */
+#main-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px; /* Add padding to create space around elements */
+  margin-top: 20px; /* Adjust the margin-top value as needed */
+}
+
+.navbar-brand {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Add styles for the username and user avatar */
+#user-info {
+  display: flex;
+  align-items: center;
+}
+
+#user-info .mr-2 {
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+/* Horizontal menu items */
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+}
+
+.navbar-nav .nav-item {
+  margin-right: 15px; /* Adjust the spacing between menu items */
+}
+
+
+.navbar-nav .nav-link {
+  color: #f7f4f4; /* Change the menu item text color */
+  text-decoration: none;
+  transition: color 0.3s;
+  display: inline-block; /* Display menu items inline */
+  padding: 5px 10px; /* Add padding to menu items */
+  border-radius: 5px; /* Add rounded corners to menu items */
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: #ffffff; /* Change the background color on hover */
+  color: #000000; /* Change the text color on hover */
+}
+
+.navbar-nav .nav-link.active {
+  font-weight: bold; /* Style the active menu item */
+  background-color: #fff;
+  color: #000000;
+}
+
+/* Tab.css */
+
+/* Add a light blue background to the logo container */
+.logo-container {
+  /*background-color: #167df1;  Adjust the color as needed */
+  padding: 10px; /* Add padding for spacing */
+  display: flex; /* Display the logo and text side by side */
+  align-items: center; /* Vertically center the content */
+}
+
+/* Style the logo and text */
+.logo-text {
+  display: flex; /* Display the logo and text side by side */
+  align-items: center; /* Vertically center the content */
+  gap: 20px; /* Add spacing between the logo and text */
+}
+
+/* Add styles for the logo text */
+.logo-text span {
+  font-size: 18px; /* Adjust the font size as needed */
+  font-weight: bold; /* Add font-weight if desired */
+}
+
+/* Sticky Footer */
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f8f9fa; /* Set the background color for the footer */
+  text-align: center;
+  font-size: 20px; 
+}

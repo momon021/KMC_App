@@ -1,0 +1,50 @@
+.Container {
+    padding: 20px;
+    text-align: center;
+    background-color: #f0f0f0;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .ServiceCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .ServiceCard:hover {
+    transform: scale(1.05);
+  }
+  
+  .ServiceCard img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .ServiceCard h5 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .ServiceCard p {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Add more styles as needed */
+  

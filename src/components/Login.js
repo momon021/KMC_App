@@ -1,5 +1,28 @@
 import React, { useState } from 'react';
-import '../styles/Login.css'; // Import your CSS file for styling
+import { styled } from '@mui/system';
+import '../styles/Login.css';
+import logo from '../images/logox.png';
+
+const Container = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100vh',
+  backgroundColor: '#f4f4f4',
+});
+
+const LeftSide = styled('div')({
+  flex: 1,
+  padding: '2rem',
+});
+
+const RightSide = styled('div')({
+  flex: 1,
+  padding: '2rem',
+  backgroundColor: '#fff',
+  borderRadius: '5px',
+  boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+});
 
 function Login({ onLogin }) {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -21,46 +44,57 @@ function Login({ onLogin }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          // Successful login logic here
-          alert('Login successful!');
-          onLogin(); // Call the onLogin callback to update the parent component
+          // Pass the username to the parent component
+          onLogin(data.user.USERNAME);
         } else {
           // Display an error message for invalid credentials
-          alert(data.message);
+          alert(data.error);
         }
       })
       .catch((error) => {
         console.error('Error during login:', error);
       });
   };
+  
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form>
-        <div className="mb-4">
-          <label>Username: </label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mb-4">
-          <label>Password: </label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-        </div>
-        <button type="button" onClick={handleLogin}>
-          Login
-        </button>
-      </form>
-    </div>
+    <Container>
+      <LeftSide>
+        <img
+          src={logo}
+          height="70"
+          alt="Logo"
+          loading="lazy"
+          style={{ width: '100%', height: 'auto' }}
+        />
+      </LeftSide>
+      <RightSide>
+        <h2>Login</h2>
+        <form>
+          <div className="mb-4">
+            <label>Username: </label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label>Password: </label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+            />
+          </div>
+          <button type="button" onClick={handleLogin}>
+            Login
+          </button>
+        </form>
+      </RightSide>
+    </Container>
   );
 }
 

@@ -1,4 +1,3 @@
-// Password.js
 
 import React from 'react';
 

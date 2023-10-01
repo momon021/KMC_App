@@ -1,0 +1,26 @@
+/* User.css */
+
+/* Add space between dialog title and text fields */
+.MuiDialogTitle-root {
+    background-color: #f0f0f0;
+    font-size: 20px;
+    padding: 116px;
+    margin-bottom: 16px; /* Add space at the bottom of the title */
+}
+
+/* Add space between text fields */
+.MuiTextField-root {
+    width: 100%;
+    margin-bottom: 16px; /* Add space at the bottom of text fields */
+}
+
+/* Style the buttons in the dialogs */
+.MuiDialogActions-root {
+    padding: 16px;
+    justify-content: flex-end;
+}
+
+/* Style the "Cancel" buttons */
+.MuiButton-textSecondary {
+    color: #007bff; /* Blue color for "Cancel" buttons */
+}

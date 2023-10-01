@@ -1,0 +1,72 @@
+/* ClientDetails.css */
+
+/* Style the main container */
+.ClientDetails {
+    text-align: center;
+}
+
+/* Style the headings */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Style the dialogs */
+.MuiDialog-root {
+    max-width: none;
+    /* Remove max width to make the dialogs full-width */
+}
+
+/* Style the dialog titles */
+.MuiDialogTitle-root {
+    background-color: #f0f0f0;
+    font-size: 20px;
+    padding: 16px;
+}
+
+/* Style the dialog content */
+.MuiDialogContent-root {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Style the columns in the dialogs */
+.Grid-item {
+    flex: 1;
+    padding: 8px;
+}
+
+/* Style the text fields in the Edit dialog */
+.MuiTextField-root {
+    width: 100%;
+}
+
+/* Style the buttons in the dialogs */
+.MuiDialogActions-root {
+    padding: 16px;
+    justify-content: flex-end;
+}
+
+/* Style the "Close" buttons */
+.MuiButton-textPrimary {
+    color: #007bff;
+    /* Blue color for "Close" buttons */
+}
+
+.MuiDialog-paper {
+    margin-top: 30px;
+    /* You can adjust the value as needed */
+}
+
+/* Style the header cells in the table */
+.header-cell {
+    background-color: #f0f0f0; /* Add your preferred background color here */
+    font-weight: bold !important; /* Make the header text bold */
+    font-size: 16px !important;  /* Set the font size to your desired value */
+    padding: 8px; /* Add padding to header cells */
+}
+
+/* Reduce the spacing between header cells */
+.header-cell:not(:last-child) {
+    margin-right: 10px; /* Adjust the right margin as needed */
+}
