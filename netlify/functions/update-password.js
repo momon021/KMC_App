@@ -31,6 +31,7 @@ exports.handler = async (event, context) => {
     });
 
     const values = response.data.values;
+    console.log ('values: ',values)
 
     // Find the user in your data (values array) by USER_ID and update the password
     const userIndex = values.findIndex((row) => row[0] === userId);

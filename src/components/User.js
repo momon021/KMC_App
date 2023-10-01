@@ -114,6 +114,7 @@ function User() {
     }
 
     const updatePasswordUrl = `${config.baseUrl}${config.endpoints.changePassword}/${selectedUser.USER_ID}`;
+    console.log ('updatePasswordUrl: ',updatePasswordUrl)
     putRequest(updatePasswordUrl, { password: newPassword })
       .then((data) => {
         if (data.success) {
