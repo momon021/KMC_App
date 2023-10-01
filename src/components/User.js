@@ -61,6 +61,7 @@ function User() {
   const [error, setError] = useState(null);
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const [openChangePasswordDialog, setOpenChangePasswordDialog] = useState(false); // Add this line
+  const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false);
 
   const handleCloseEditDialog = () => {
     setOpenEditDialog(false);
@@ -396,7 +397,7 @@ function User() {
           </Button>
         </DialogActions>
       </Dialog>
-      <Dialog open={openChangePasswordDialog} onClose={handleCloseChangePasswordDialog}>
+      <Dialog open={openChangePasswordDialog && !passwordChangeSuccess} onClose={handleCloseChangePasswordDialog}>
         <DialogTitle>Change Password</DialogTitle>
         <DialogContent>
           <TextField
