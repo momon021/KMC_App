@@ -1,20 +1,7 @@
 import React from "react";
-import { Container, Grid, Paper, Typography, Card, CardContent } from "@mui/material";
-import { Doughnut } from "react-chartjs-2"; // Import Doughnut chart
-import { makeStyles } from "@mui/styles"; // Import makeStyles from @mui/styles
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(2),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-}));
+import { Container, Grid, Paper, Typography } from "@mui/material";
 
 function Dashboard() {
-  const classes = useStyles();
-
   // Sample data for demonstration
   const taskData = [
     { id: 1, title: "Task 1", status: "In Progress" },
@@ -28,15 +15,17 @@ function Dashboard() {
     { id: 3, clientName: "Client C", progress: 90 },
   ];
 
-  const doughnutData = {
-    labels: ["In Progress", "Completed", "Pending"],
-    datasets: [
-      {
-        data: [1, 2, 3],
-        backgroundColor: ["rgba(255, 99, 132, 0.6)", "rgba(54, 162, 235, 0.6)", "rgba(255, 206, 86, 0.6)"],
-      },
-    ],
-  };
+  const agingData = [
+    { id: 1, clientName: "Client A", agingDays: 15 },
+    { id: 2, clientName: "Client B", agingDays: 30 },
+    { id: 3, clientName: "Client C", agingDays: 7 },
+  ];
+
+  const nearDeadlineData = [
+    { id: 1, taskName: "Task X", daysUntilDeadline: 3 },
+    { id: 2, taskName: "Task Y", daysUntilDeadline: 5 },
+    { id: 3, taskName: "Task Z", daysUntilDeadline: 2 },
+  ];
 
   return (
     <Container maxWidth="lg">
@@ -46,7 +35,7 @@ function Dashboard() {
       <Grid container spacing={3}>
         {/* Task View */}
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} className={classes.paper}>
+          <Paper elevation={3} style={{ padding: "20px" }}>
             <Typography variant="h5" gutterBottom>
               Task View
             </Typography>
@@ -62,7 +51,7 @@ function Dashboard() {
 
         {/* Client Progress View */}
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} className={classes.paper}>
+          <Paper elevation={3} style={{ padding: "20px" }}>
             <Typography variant="h5" gutterBottom>
               Client Progress
             </Typography>
@@ -76,26 +65,36 @@ function Dashboard() {
           </Paper>
         </Grid>
 
-        {/* Task Status Doughnut Chart */}
+        {/* Aging View */}
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} className={classes.paper}>
+          <Paper elevation={3} style={{ padding: "20px" }}>
             <Typography variant="h5" gutterBottom>
-              Task Status Doughnut Chart
+              Aging
             </Typography>
-            <Doughnut data={doughnutData} />
+            <ul>
+              {agingData.map((client) => (
+                <li key={client.id}>
+                  {client.clientName} - Aging Days: {client.agingDays}
+                </li>
+              ))}
+            </ul>
           </Paper>
         </Grid>
 
-        {/* More Graphs or Information */}
+        {/* Near Deadline View */}
         <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5" gutterBottom>
-                More Graphs or Information
-              </Typography>
-              {/* Add more graphs, information, or buttons as needed */}
-            </CardContent>
-          </Card>
+          <Paper elevation={3} style={{ padding: "20px" }}>
+            <Typography variant="h5" gutterBottom>
+              Near Deadlines
+            </Typography>
+            <ul>
+              {nearDeadlineData.map((task) => (
+                <li key={task.id}>
+                  {task.taskName} - Days Until Deadline: {task.daysUntilDeadline}
+                </li>
+              ))}
+            </ul>
+          </Paper>
         </Grid>
       </Grid>
     </Container>
