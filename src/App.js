@@ -176,7 +176,7 @@ function App() {
             <img
               src={logo} // Replace with your logo URL
               alt="Logo"
-              height="100" // Adjust the height as needed
+              height="70" // Adjust the height as needed
               style={{ marginRight: "10px" }} // Add some spacing between logo and title
             />
             <Typography
