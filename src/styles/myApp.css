@@ -8,6 +8,7 @@
 }
 
 .navbar-brand {
+  display: flex;
   border: none;
   background: none;
   padding: 0;
@@ -33,6 +34,7 @@
 
 .navbar-nav .nav-item {
   margin-right: 15px; /* Adjust the spacing between menu items */
+  display: flex;
 }
 
 

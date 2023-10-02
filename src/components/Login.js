@@ -1,31 +1,45 @@
-import React, { useState } from 'react';
-import { styled } from '@mui/system';
-import '../styles/Login.css';
-import logo from '../images/logox.png';
+import React, { useState } from "react";
+import { styled } from "@mui/system";
+import "../styles/Login.css";
+import logo from "../images/icon.png"
 
-const Container = styled('div')({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '100vh',
-  backgroundColor: '#f4f4f4',
+const Container = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
+  backgroundColor: "#f4f4f4",
 });
 
-const LeftSide = styled('div')({
+const LeftSide = styled("div")({
   flex: 1,
-  padding: '2rem',
+  padding: "2rem",
+  display: "none", // Hide on mobile view
+  "@media (min-width: 768px)": {
+    display: "block", // Display on screens wider than 768px
+  },
 });
 
-const RightSide = styled('div')({
+const RightSide = styled("div")({
   flex: 1,
-  padding: '2rem',
-  backgroundColor: '#fff',
-  borderRadius: '5px',
-  boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+  padding: "2rem",
+  backgroundColor: "#fff",
+  borderRadius: "5px",
+  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
+const Logo = styled("img")({
+  width: "100%",
+  height: "auto",
+  marginBottom: "2rem",
 });
 
 function Login({ onLogin }) {
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState({ username: "", password: "" });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,14 +48,13 @@ function Login({ onLogin }) {
 
   const handleLogin = () => {
     // Send login credentials to the server
-    //fetch('http://localhost:5000/api/login', {
-    fetch('https://kmcworkmanagement.netlify.app/.netlify/functions/login', {
-
-      method: 'POST',
+    //fetch("http://localhost:5000/api/login", {
+      fetch("https://kmcworkmanagement.netlify.app/.netlify/functions/login", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ ...formData }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -54,27 +67,24 @@ function Login({ onLogin }) {
         }
       })
       .catch((error) => {
-        console.error('Error during login:', error);
+        console.error("Error during login:", error);
       });
   };
-
 
   return (
     <Container>
       <LeftSide>
-        <img
-          src={logo}
-          height="70"
+        <Logo
+          src={logo} // Replace with your image URL
           alt="Logo"
           loading="lazy"
-          style={{ width: '100%', height: 'auto' }}
         />
       </LeftSide>
       <RightSide>
         <h2>Login</h2>
         <form>
           <div className="mb-4">
-            <label>Username: </label>
+            <label>Username:</label>
             <input
               type="text"
               name="username"
@@ -83,7 +93,7 @@ function Login({ onLogin }) {
             />
           </div>
           <div className="mb-4">
-            <label>Password: </label>
+            <label>Password:</label>
             <input
               type="password"
               name="password"
@@ -91,6 +101,7 @@ function Login({ onLogin }) {
               onChange={handleInputChange}
             />
           </div>
+
           <button type="button" onClick={handleLogin}>
             Login
           </button>
