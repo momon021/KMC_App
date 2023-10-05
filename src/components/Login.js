@@ -49,7 +49,8 @@ function Login({ onLogin }) {
   const handleLogin = () => {
     // Send login credentials to the server
       //fetch("http://localhost:5000/api/login", {
-      fetch("https://kmcworkmanagement.netlify.app/.netlify/functions/login", {
+      fetch("https://651ec833cf136800077286dd--kmcworkmanagement.netlify.app/.netlify/functions/login", {
+        
       method: "POST",
       headers: {
         "Content-Type": "application/json",
