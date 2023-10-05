@@ -12,11 +12,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
-
-const userFilePath = path.join(__dirname, '../json/user.json');
 const keyFilePath = path.join(__dirname, '../json/kmc-work-mangement-38261d8b5b5b.json');
-
-const userData = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
 
 const auth = new google.auth.GoogleAuth({
   keyFile: keyFilePath,
