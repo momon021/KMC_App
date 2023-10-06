@@ -120,7 +120,7 @@ function App() {
       } else if (selectedTab === 2) {
         return <ServicesHome />; // Render Services component
       } else if (selectedTab === 3) {
-        return <Login onLogin={handleSuccessfulLogin} />;
+        return <Login onLogin={handleLoginClick} />;
       }
     }
 
