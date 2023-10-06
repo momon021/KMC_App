@@ -58,7 +58,7 @@ function App() {
 
     // Set the default tab to Dashboard when the component mounts if logged in
     if (isLoggedIn) {
-      setSelectedTab(1); // 1 corresponds to the Dashboard tab
+      setSelectedTab(0); // 1 corresponds to the Dashboard tab
     }
   }, [isLoggedIn]);
 
@@ -72,7 +72,7 @@ function App() {
 
   const handleSuccessfulLogin = (fetchedUsername) => {
     setIsLoggedIn(true);
-    setSelectedTab(0); // Change the default tab to 0 (Home) after successful login
+    setSelectedTab(0); 
     setIsLoginPage(false);
 
     localStorage.setItem("isLoggedIn", "true");
@@ -114,7 +114,7 @@ function App() {
     if (!isLoggedIn) {
       // Check the selectedTab index to render the corresponding component
       if (selectedTab === 0) {
-        return <Home onLoginClick={handleLoginClick} />;
+        return <Home />;
       } else if (selectedTab === 1) {
         return <AboutUs />; // Render About Us component
       } else if (selectedTab === 2) {
@@ -124,6 +124,10 @@ function App() {
       }
     }
 
+    if (selectedTab < 0 || selectedTab >= pageNames.length) {
+      setSelectedTab(0);
+    }
+  
     return pageNames[selectedTab].component;
   };
   return (
